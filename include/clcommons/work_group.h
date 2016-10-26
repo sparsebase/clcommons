@@ -28,7 +28,7 @@ enum clcommon_scan_t{
 
 #define WORK_GROUP_SCAN_IMPL_POWER2(T, op, identity, scan_or_reduce, exclusive)                                         \
     /* Set first half of local memory to zero to make room for scanning */                                              \
-    size_t l_id = get_local_linear_id();                                                                          \
+    size_t l_id = get_local_linear_id_2();                                                                          \
     const size_t wg_size = get_workgroup_size();                                                                        \
     /*set identity values*/                                                                                             \
     lmem[l_id] = identity;                                                                                              \
@@ -56,7 +56,7 @@ T PASTE(clc_work_group_scan_power2_, T)(T val, operator, enum clcommon_scan_redu
 
 #define WORK_GROUP_SCAN_IMPL_NONPOWER2(T, op, identity, scan_or_reduce, exclusive)                                                    \
     /* Set first half of local memory to zero to make room for scanning */                                                            \
-    size_t _l_id = get_local_linear_id();                                                                                             \
+    size_t _l_id = get_local_linear_id_2();                                                                                             \
     size_t l_id = _l_id;                                                                                                              \
     const size_t wg_size = get_workgroup_size();                                                                                      \
     const size_t log2DownWgSize = log2Down(wg_size);                                                                                  \

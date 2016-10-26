@@ -68,13 +68,13 @@ uint get_workgroup_size(){
     return get_local_size(0) * get_local_size(1) * get_local_size(2);
 }
 
-#if __OPENCL_VERSION__ < 200
 #define work_group_barrier barrier
-uint get_local_linear_id(){
+#define atomic_load(p) atomic_or((p), 0)
+uint get_local_linear_id_2(){
     return get_local_id(0) + get_local_id(1) * get_local_size(0) + get_local_id(2) * get_local_size(0) * get_local_size(1);
 }
 
-#define atomic_load(p) atomic_or((p), 0)
+#if __OPENCL_VERSION__ < 200
 #endif
 
 #define ensure_lds_barrier() work_group_barrier(CLK_LOCAL_MEM_FENCE)
